@@ -1,38 +1,27 @@
-# 🌳 Architektur — atc-blockchain-wiki
+# ARCHITECTURE.md — atc-blockchain
 
-> **Stand:** 2026-08-06 | **Commit:** 9eb972a
-> **Teil von:** [A-TownChain Ökosystem](https://github.com/A-TownChain-Okosystems)
+> Copyright © Michael Wroblewski / A-TownChain-Okosystems. All Rights Reserved.
 
-## Statistik
-
-| Metrik | Wert |
-|--------|------|
-| Dateien | 13 |
-| Zeilen | 538 |
-| .atc | 0 |
-| .py | 0 |
-| .rs | 0 |
-| .ts/.tsx | 0 |
-| .md | 11 |
-
-## Verzeichnisstruktur
-
-```
-├── docs/ (7 files, 364 lines)
-│   ├── API.md (79 lines)
-│   ├── ARCHITECTURE.md (76 lines)
-│   ├── CONSENSUS.md (45 lines)
-│   ├── MEMPOOL.md (35 lines)
-│   ├── MODULES.md (70 lines)
-│   ├── ROADMAP.md (23 lines)
-│   └── VALIDATORS.md (36 lines)
-├── .gitignore
-├── FILE_REGISTER.md (109 lines)
-├── LICENSE
-├── README.md (24 lines)
-├── ROADMAP.md (8 lines)
-└── STATUS.md (33 lines)
+## File Tree
+```tree
+atc-blockchain/
+├── requirements.txt — Core blockchain node python dependencies
+├── README.md — Core node architecture and setup documentation
+├── consensus/ — Proof-of-Stake / Proof-of-History consensus protocol engine
+├── contracts/ — Smart contract execution engine and runtime environment
+├── p2p/ — Peer-to-peer network protocol layer (TCP/WebSockets)
+└── genesis/ — Initial network genesis state configuration and bootstrap generator
 ```
 
----
-*Auto-generiert 2026-08-06 · Aurora (MasterBrain · Base44)*
+## Module Descriptions
+- consensus/ — Implements block production, leader election, finality voting, and fork choice rules.
+- contracts/ — Contract execution environment processing state transitions and gas accounting.
+- p2p/ — Peer discovery, block propagation, and transaction gossip networking.
+- genesis/ — Generates initial state allocations, validator sets, and network parameters.
+
+## Build System
+- Python 3.11 asynchronous blockchain node runtime configured via `requirements.txt`.
+
+## Dependencies
+- cryptography — Cryptographic signing, verification, and hash functions.
+- websockets / asyncio — Asynchronous P2P network communication framework.
