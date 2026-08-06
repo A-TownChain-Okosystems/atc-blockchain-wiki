@@ -1,61 +1,79 @@
 # 🏛️ Architektur — atc-blockchain
 
-> **Kanonische Dokumentation für die Architektur von `atc-blockchain`**
+> **Repo:** [atc-blockchain](https://github.com/A-TownChain-Okosystems/atc-blockchain)
+> **Layer:** L3-L4 | **Titel:** Blockchain Core
+> **Stand:** 2026-08-06 | **Version:** v1.0.0
 
 ---
 
-## 1. Systemübersicht
+## Übersicht
 
-`atc-blockchain` nimmt die Layer-3-Rolle im A-TownChain OS Ökosystem ein. Das Modul ist verantwortlich für die dezentrale Konsensfindung, die Erzeugung von Blöcken, die Transaktionsverwaltung im Mempool sowie die verifizierbare Ausführung von Smart Contracts in der ATVM.
+Blockchain Core: Consensus (PoH+PoA), Block Production, Mempool, Validators, Smart Contracts.
+
+## Komponenten
+
+### ATCLang Module (.atc)
+
+| Datei | Zeilen | Beschreibung |
+|------|--------|---------------|
+| `consensus/fork_atc85.atc` | 74 | Fork Atc85 |
+| `consensus/fork_resolution.atc` | 145 | Fork Resolution |
+| `consensus/gas_fee.atc` | 130 | Gas Fee |
+| `consensus/gas_fee_atc86.atc` | 71 | Gas Fee Atc86 |
+| `consensus/hybrid_atc84.atc` | 98 | Hybrid Atc84 |
+| `consensus/hybrid_consensus.atc` | 357 | Hybrid Consensus |
+| `consensus/poh.atc` | 140 | Poh |
+| `consensus/poh_atc83.atc` | 79 | Poh Atc83 |
+| `consensus/pos.atc` | 164 | Pos |
+| `consensus/pos_atc82.atc` | 92 | Pos Atc82 |
+| `consensus/pow.atc` | 107 | Pow |
+| `consensus/pow_atc81.atc` | 89 | Pow Atc81 |
+| `contract_registry.atc` | 98 | Contract Registry |
+| `contracts/atc001/genesis_token.atc` | 102 | Genesis Token |
+| `contracts/contract_engine_atc14.atc` | 309 | Contract Engine Atc14 |
+| `contracts/governance/governance_contract.atc` | 202 | Governance Contract |
+| `contracts/shivamon/breeding.atc` | 139 | Breeding |
+| `dex/amm.atc` | 277 | Amm |
+| `governance/dao.atc` | 168 | Dao |
+| `governance/dao_live.atc` | 235 | Dao Live |
+
+*+23 weitere ATCLang-Module*
+
+### Python Module (.py)
+
+| Datei | Zeilen | Beschreibung |
+|------|--------|---------------|
+| `consensus/poh.py` | 67 | Poh |
+| `contracts/atc001/genesis_token.py` | 74 | Genesis Token |
+| `contracts/atc8300/atc8300_token.py` | 126 | Atc8300 Token |
+| `contracts/base/base_contract.py` | 87 | Base Contract |
+| `nodes/bootstrap.py` | 257 | Bootstrap |
+| `nodes/discovery.py` | 314 | Discovery |
+| `nodes/p2p_propagation.py` | 381 | P2P Propagation |
+| `smart_contract_registry.py` | 53 | Smart Contract Registry |
+| `smart_contracts.py` | 716 | Smart Contracts |
+| `wallet/did.py` | 74 | Did |
+| `wallet/ecdsa.py` | 72 | Ecdsa |
+| `wallet/multisig.py` | 107 | Multisig |
+
+## Abhängigkeiten
+
+Dieses Repo ist Teil des A-TownChain Ökosystems und nutzt:
+- [ATCLang Compiler](https://github.com/A-TownChain-Okosystems/atclang) für .atc Module
+- [ATC Standards](https://github.com/A-TownChain-Okosystems/atc-standards) für Spezifikationen
+- [Haupt-Wiki](https://github.com/A-TownChain-Okosystems/a-townchain-os-docs) für Governance
+
+## Statistik
+
+| Metrik | Wert |
+|--------|------|
+| Code-Dateien | 55 |
+| .atc | 43 |
+| .py | 12 |
+| .rs | 0 |
+| .ts | 0 |
+| Total Zeilen | 8,891 |
 
 ---
 
-## 2. Layering & Interaktion
-
-```
-+-------------------------------------------------------+
-|  Layer L10/L7: Client Applications / API Gateway      |
-+-------------------------------------------------------+
-                           |
-                           v
-+-------------------------------------------------------+
-|  Layer L3: Blockchain Core (atc-blockchain)           |
-|  ├─ Mempool & Tx Validator                            |
-|  ├─ PoH Timestamp Generator (Verifiable Clock)        |
-|  ├─ PoA/PoS Hybrid Consensus State Machine            |
-|  ├─ ATVM Contract Engine & State Storage              |
-|  └─ Governance & Treasury                             |
-+-------------------------------------------------------+
-                           |
-                           v
-+-------------------------------------------------------+
-|  Layer L5: P2P Network (atcnet)                       |
-+-------------------------------------------------------+
-|  Layer L2: ShivaOS Microkernel (atc-kernel)          |
-+-------------------------------------------------------+
-```
-
----
-
-## 3. Subsysteme & Kern-Module
-
-1. **Konsens-Subsystem (`consensus/`)**
-   - **PoH Engine (`poh.py` / `poh.atc`)**: Sequentielles Hashing zur krypographischen Verifikation der verstrerichenen Zeit vor der Konsensfindung.
-   - **Hybrid State Machine (`hybrid_consensus.atc`)**: PoH erzeugt Zeitstempel, PoA validiert Blöcke und entscheidet Finalität.
-   - **Gabelungsauflösung (`fork_resolution.atc`)**: Longest-Chain- und Heaviest-PoH-Weight-Regel zur automatischen Auflösung von Netzwerk-Forks.
-   - **Gaspreis-Modell (`gas_fee.atc`)**: Dynamische Anpassung der Ausführungsgebühren basierend auf der Blockauslastung.
-
-2. **Knoten- & Netzwerk-Verwaltung (`nodes/`)**
-   - **Validator Node Daemon (`node.atc`)**: Verwaltet den lokalen Ledger-Zustand, verifiziert eingehende Blöcke und nimmt an Konsensrunden teil.
-   - **P2P Integration (`p2p_propagation.py`, `discovery.py`)**: Verbindet den Node direkt mit dem `atcnet` Overlay-Netzwerk.
-
-3. **Vertrags- & Ausführungsebene (`contracts/`)**
-   - Ausführung von Smart Contracts in ATCLang oder Python.
-   - Lizenzprüfung jedes Vertrages gemäß **ATC-LIC** vor der Zustandstransformation.
-
-4. **On-Chain Governance (`governance/`)**
-   - Abstimmungen über Parameteränderungen, Validator-Sets und Treasury-Auszahlungen.
-
----
-
-*Teil des [A-TownChain Ökosystems](https://github.com/A-TownChain-Okosystems)*
+*Auto-generiert 2026-08-06 · Aurora (MasterBrain · Base44)*

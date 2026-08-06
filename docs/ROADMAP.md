@@ -1,30 +1,23 @@
 # 🗺️ Roadmap — atc-blockchain
 
-> **Meilensteine und Entwicklungsplanung für Blockchain Core**
+> **Repo:** [atc-blockchain](https://github.com/A-TownChain-Okosystems/atc-blockchain)
+> **Layer:** L3-L4 | **Stand:** 2026-08-06
 
 ---
 
-## 🟢 Phase 1: Genesis & Testnet (Abgeschlossen)
-- [x] Initialisierung des Repositories & Implementierung der PoH Engine
-- [x] Testnet Launch (Chain-ID `9001`) mit Multi-Node Launcher
-- [x] Basis-Token-Standards (`atc001`, `atc8300`) und ATCoin Integration
-- [x] P2P Networking Anbindung via `atcnet`
+## Sprint-Zuordnung
 
-## 🟡 Phase 2: Core Optimization & Hardening (Aktuell)
-- [/] Erweiterung des Hybriden Konsensmodells (PoH + PoA)
-- [/] Zero-Knowledge Verification (`zkp/groth16.atc`)
-- [/] Automated Market Maker (AMM) DEX Modul
-- [x] Einheitliches Licensing (ATC-LIC) & Governance Contract Alignment
+| Sprint | Phase | Status | Aufgaben |
+|--------|-------|--------|----------|
+| 2.3 | Blockchain | Aktiv | — |
+| 2.5 | Contracts | Aktiv | — |
 
-## 🔵 Phase 3: Mainnet Launch (Q3 2026)
-- [ ] Mainnet Genesis Block Generation (Chain-ID `9000`)
-- [ ] Aktivierung von 100+ dezentralen Validator Slots
-- [ ] Vollständiges Cross-Chain Bridge Rollout (`atc-contracts`)
+## Meilensteine
 
-## 🟣 Phase 4: Sharding & Quantum Resistance (Q4 2026+)
-- [ ] Dynamic Network Sharding (`sharding_atc07.atc`)
-- [ ] Quantum-Resistant Signatures (`atc-05_quantumresistant_signatures.atc`)
+1. **v0.3** — ATCLang Parser stabil, Basis-Module migriert
+2. **v0.4** — Struct-Inheritance, Kernel-Support, VM Opcodes
+3. **v1.0** — Vollständige Implementierung, Test-Abdeckung >80%
 
 ---
 
-*Teil des [A-TownChain Ökosystems](https://github.com/A-TownChain-Okosystems)*
+*Auto-generiert 2026-08-06 · Aurora (MasterBrain · Base44)*
