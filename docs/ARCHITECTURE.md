@@ -36,8 +36,13 @@ Blockchain Core: Consensus (PoH+PoA), Block Production, Mempool, Validators, Sma
 | `dex/amm.atc` | 277 | Amm |
 | `governance/dao.atc` | 168 | Dao |
 | `governance/dao_live.atc` | 235 | Dao Live |
+| `governance/timelock.atc` | 150 | Timelock |
+| `governance/treasury.atc` | 220 | Treasury |
+| `mainnet/launch_manager.atc` | 105 | Launch Manager |
+| `mainnet/mainnet_config.atc` | 151 | Mainnet Config |
+| `network/atc-02_liquid_state_migration_failover.atc` | 58 | Atc-02 Liquid State Migration Failover |
 
-*+23 weitere ATCLang-Module*
+*+18 weitere*
 
 ### Python Module (.py)
 
@@ -56,18 +61,10 @@ Blockchain Core: Consensus (PoH+PoA), Block Production, Mempool, Validators, Sma
 | `wallet/ecdsa.py` | 72 | Ecdsa |
 | `wallet/multisig.py` | 107 | Multisig |
 
-## Abhängigkeiten
-
-Dieses Repo ist Teil des A-TownChain Ökosystems und nutzt:
-- [ATCLang Compiler](https://github.com/A-TownChain-Okosystems/atclang) für .atc Module
-- [ATC Standards](https://github.com/A-TownChain-Okosystems/atc-standards) für Spezifikationen
-- [Haupt-Wiki](https://github.com/A-TownChain-Okosystems/a-townchain-os-docs) für Governance
-
 ## Statistik
 
 | Metrik | Wert |
 |--------|------|
-| Code-Dateien | 55 |
 | .atc | 43 |
 | .py | 12 |
 | .rs | 0 |
@@ -76,4 +73,4 @@ Dieses Repo ist Teil des A-TownChain Ökosystems und nutzt:
 
 ---
 
-*Auto-generiert 2026-08-06 · Aurora (MasterBrain · Base44)*
+*Auto-generiert 2026-08-06 · Aurora*
